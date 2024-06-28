@@ -1,0 +1,51 @@
+body{
+  background-color: #F7F8FA;
+  padding: 12px;
+}
+
+/* --------------- Search Bar Component -----------------*/
+
+.search-container{
+  position: relative;
+}
+
+.search-icon{
+  position: absolute;
+  transform: translateY(60%);
+  left: 12px;
+  color: lightgray;
+}
+
+.search-bar{
+  border: 1px solid lightgray;
+  border-radius: 12px;
+  padding: 12px 30px;
+  outline: none;
+}
+
+/* -------------- Categories Component ---------------- */
+
+.categories-content{
+  display: flex;
+  color: gray;
+  margin: 1rem 0;
+}
+
+.categories-content p{
+  border: 1px solid #FFC700;
+  padding: 10px 15px;
+  font-weight: 600;
+
+}
+
+.categories-content p:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.categories-content p:last-child{
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+

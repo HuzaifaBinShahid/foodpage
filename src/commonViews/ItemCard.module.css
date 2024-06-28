@@ -1,0 +1,14 @@
+.item-content{
+    box-shadow: 10px 15px 10px 15px;
+    overflow: hidden;
+}
+
+.itemImg{
+    width: 300px;
+}
+
+.ratings{
+    display: flex;
+    margin-top: 1rem;
+    gap: 10px;
+}
