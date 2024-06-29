@@ -1,14 +1,32 @@
-.item-content{
-    box-shadow: 10px 15px 10px 15px;
-    overflow: hidden;
+.itemContainer {
+    display: flex;
 }
 
-.itemImg{
+.itemContent {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.itemContent:hover {
+    transform: scale(1.05);
+}
+
+.itemImg {
     width: 300px;
 }
 
-.ratings{
+.ratings {
     display: flex;
     margin-top: 1rem;
     gap: 10px;
+}
+
+.ratings span{
+    background-color: lightgray;
+    padding: 8px;
+    border-radius: 5px;
 }

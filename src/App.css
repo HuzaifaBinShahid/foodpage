@@ -1,22 +1,22 @@
-body{
+body {
   background-color: #F7F8FA;
   padding: 12px;
 }
 
 /* --------------- Search Bar Component -----------------*/
 
-.search-container{
+.search-container {
   position: relative;
 }
 
-.search-icon{
+.search-icon {
   position: absolute;
   transform: translateY(60%);
   left: 12px;
   color: lightgray;
 }
 
-.search-bar{
+.search-bar {
   border: 1px solid lightgray;
   border-radius: 12px;
   padding: 12px 30px;
@@ -25,27 +25,56 @@ body{
 
 /* -------------- Categories Component ---------------- */
 
-.categories-content{
+.categories-container {
   display: flex;
   color: gray;
   margin: 1rem 0;
 }
 
-.categories-content p{
+.categories-container button {
   border: 1px solid #FFC700;
   padding: 10px 15px;
   font-weight: 600;
-
 }
 
-.categories-content p:first-child {
+.categories-container button:hover{
+  color: white;
+  background-color: #FFC700;
+}
+
+.categories-container button:first-child {
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
 }
 
-.categories-content p:last-child{
+.categories-container button:last-child {
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
 }
 
+/* ------------- Items Component -------------- */
 
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.show-btn{
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.showmore {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #FFC700;
+  background-color: white;
+  font-weight: 600;
+}
+
+.showmore:hover{
+  color: white;
+  background-color: #FFC700;
+}
