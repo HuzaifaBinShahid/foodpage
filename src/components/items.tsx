@@ -1,12 +1,9 @@
-// Importing Hooks
-import { useEffect, useState } from "react";
-
-// Importing Components
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import ItemCard from "../commonViews/ItemCard";
 
-// Importing Packages
-import axios from "axios";
 
+// items thigs required to be fetched
 interface Item {
   id: string;
   name: string;
@@ -18,6 +15,17 @@ interface Item {
   categoryId: string;
 }
 
+// taking array for the response from api
+interface ApiResponse {
+  foods: Item[];
+}
+
+// fetch categories to replate with items displayed
+interface Category {
+  id: string;
+  name: string;
+}
+
 interface ItemsProps {
   searchQuery: string;
   selectedCategory: string | null;
@@ -25,36 +33,56 @@ interface ItemsProps {
 
 const Items: React.FC<ItemsProps> = ({ searchQuery, selectedCategory }) => {
   const [items, setItems] = useState<Item[]>([]);
-  const [visibleItems, setVisibleItems] = useState<number>(9); // Initial number of visible items
+  const [visibleItems, setVisibleItems] = useState<number>(9); // Initial number of visible items before clicking show more button
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get(
-          "https://gist.githubusercontent.com/wilson-wego/8311b463cd331099e34a1f251dad4cbf/raw/ef4e1b48002e5017dd78bbb48a2adf8a97419529/food.json"
+        // Fetch data from Gist API
+        const response = await axios.get<ApiResponse>(
+          "https://gist.githubusercontent.com/wilson-wego/8311b463cd331099e34a1f251dad4cbf/raw/f1b04f9afe0fcc0c9270cb486b927641b7d27436/food.json"
         );
-        setItems(response.data.foods);
+        const data = response.data.foods;
+
+        setItems(data);
       } catch (error) {
-        console.error("Error Fetching Items:" + error);
+        console.error("Error fetching items:", error);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        // Fetch categories
+        const categoriesResponse = await axios.get<Category[]>(
+          "https://gist.githubusercontent.com/wilson-wego/f7381fcead7a47a7df257a97a033456a/raw/33cd31ce75ba72a809d48944463b53b74b9ccae8/categories.json" 
+        );
+        setCategories(categoriesResponse.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
       }
     };
 
     fetchItems();
+    fetchCategories();
   }, []);
 
   const handleShowMore = () => {
     setVisibleItems(prevVisibleItems => prevVisibleItems + 9);
   };
 
-  const filteredItems = items.filter(item =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    (selectedCategory ? item.categoryId === selectedCategory : true)
-  );
+  const filteredItems = items.filter(item => {
+    const itemCategory = categories.find(cat => cat.id === item.categoryId)?.name.toLowerCase(); // made lower case to match with the names in items api images link response
+    return (
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (selectedCategory ? itemCategory === selectedCategory.toLowerCase() : true)
+    );
+  });
 
   return (
     <section id="items">
       <div className="items-container">
-        {filteredItems.slice(0, visibleItems).map((item) => (
+        {filteredItems.slice(0, visibleItems).map(item => (
           <ItemCard
             key={item.id}
             ImgSrc={item.imageUrl}
@@ -64,13 +92,13 @@ const Items: React.FC<ItemsProps> = ({ searchQuery, selectedCategory }) => {
           />
         ))}
       </div>
-      {visibleItems < filteredItems.length && (
-          <div className="show-btn">
-            <button className="showmore" onClick={handleShowMore}>
-              + Show More
-            </button>
-          </div>
-        )}
+      {visibleItems < filteredItems.length && ( // when clicked on show more button the visible items will increase
+        <div className="show-btn">
+          <button className="showmore" onClick={handleShowMore}>
+            + Show More
+          </button>
+        </div>
+      )}
     </section>
   );
 };

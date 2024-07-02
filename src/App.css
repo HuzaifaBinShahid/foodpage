@@ -52,6 +52,11 @@ body {
   border-bottom-right-radius: 12px;
 }
 
+.selected{
+  background-color: #FFC700;
+  color: white;
+}
+
 /* ------------- Items Component -------------- */
 
 .items-container {

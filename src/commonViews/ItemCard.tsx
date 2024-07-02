@@ -1,3 +1,4 @@
+import React from 'react';
 // Importing Styles File
 import styles from './ItemCard.module.css';
 
